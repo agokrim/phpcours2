@@ -1,0 +1,17 @@
+{
+    "name": "admin/phpcours2",
+    "autoload": {
+        "psr-4": {
+            "Admin\\Phpcours2\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "abdel",
+            "email": "abdelkrim.agouzal@gmail.com"
+        }
+    ],
+    "require": {
+        "symfony/var-dumper": "^5.4"
+    }
+}
