@@ -4,9 +4,6 @@ session_start();
 use App\Auth;
 require '../src/auth.php';
 
-$error=null;
-
-if(!empty($_POST)){
     $pdo = new PDO(
         "sqlite:../sqlitedata/dbtuto.db",
         null,
@@ -17,20 +14,14 @@ if(!empty($_POST)){
         ]
       );
       $auth = new Auth($pdo);
-      $user = $auth->login($_POST['username'],$_POST['password']);
-      
+      $user = $auth->user();
+  
       if($user === null){
-        
-        $error =true;
+        header('location:login.php');
       }
-      else{
-        header('location:index.php?login=1');
-        $error =false;
-      }
-      
-}
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,20 +32,15 @@ if(!empty($_POST)){
     <title>Document</title>
 </head>
 <body class="p-4">
-    <h1>Se connecter </h1>
-    <?php if($error): ?>
-        <div class="alert alert-danger">identifiant ou mot de passe incorect</div>
-    <?php endif ?>
-    <form action="" method="POST">
-        <div class="form-group">
-            <input type="text" class="form-control" name="username" placeholder="pseudo">
-        </div>
-        <div class="form-group">
-            <input type="password" class="form-control" name="password" placeholder="Mot de passe">
-        </div>
-   <button class="btn btn-primary">Se connecter</button>
-
-    </form>
+    <h1><?=$user->username ?>  is Connected</h1><a href="./logout.php">se deconnecter</a>
+  
+       <div>
+       <br/><br/><br/>
+            <p> <a href="/logout.php">admin page</a></p>
+            <p> <a href="/logout.php">user page</a></p>
+         </div>
+       
+   
   
 </body>
 </html>
