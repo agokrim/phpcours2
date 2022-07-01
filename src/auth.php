@@ -39,6 +39,7 @@ class Auth{
 
         $user = $statment->fetchObject(User::class);
         
+       
       
         if($user === false){
             return null;
@@ -55,6 +56,12 @@ class Auth{
             
            
             return $user;
+
+           
+        }
+        else
+        {
+            return null;
         }
         
     }

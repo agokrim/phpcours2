@@ -1,3 +1,4 @@
+
 <?php
 require '../vendor/autoload.php';
 session_start();
@@ -6,9 +7,11 @@ use App\App;
 require '../src/app.php';
 require '../src/auth.php';
 
-      $user =  App::getAuth()->user();
-        if($user === null){
-        header('location:login.php');
+
+        $user =  App::getAuth()->user();
+  
+      if($user === null || $user->role !=='userrole' ){
+        header('location:index.php?forbid=true');
       }
 
 ?>
@@ -24,16 +27,10 @@ require '../src/auth.php';
 </head>
 <body class="p-4">
     <h1><?=$user->username ?>  is Connected</h1><a href="./logout.php">se deconnecter</a>
- 
-    <?php if(isset($_GET['forbid'])):?> 
-      <div class="alert alert-danger">vous n'avez pas le droit pour acceder a la page </div>
-    <?php endif ?>
-    
   
        <div>
        <br/><br/><br/>
-            <p> <a href="./admin.php">admin page</a></p>
-            <p> <a href="./user.php">user page</a></p>
+       <p> <a href="/logout.php">vous étes sur la page User !!!</a></p>
          </div>
        
    

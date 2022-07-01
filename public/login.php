@@ -2,22 +2,16 @@
 require '../vendor/autoload.php';
 session_start();
 use App\Auth;
+use App\App;
 require '../src/auth.php';
+require '../src/app.php';
 
 $error=null;
 
 if(!empty($_POST)){
-    $pdo = new PDO(
-        "sqlite:../sqlitedata/dbtuto.db",
-        null,
-        null,
-        [
-          PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-          PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-        ]
-      );
-      $auth = new Auth($pdo);
-      $user = $auth->login($_POST['username'],$_POST['password']);
+ 
+     
+      $user = App::getAuth()->login($_POST['username'],$_POST['password']);
       
       if($user === null){
         

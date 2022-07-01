@@ -3,12 +3,15 @@ require '../vendor/autoload.php';
 session_start();
 use App\Auth;
 use App\App;
-require '../src/app.php';
 require '../src/auth.php';
+require '../src/app.php';
 
-      $user =  App::getAuth()->user();
-        if($user === null){
-        header('location:login.php');
+        
+      $auth = new Auth(App::getPDO());
+      $user = $auth->user();
+     
+      if($user === null || $user->role !=='administrator' ){
+        header('location:index.php?forbid=true');
       }
 
 ?>
@@ -24,16 +27,11 @@ require '../src/auth.php';
 </head>
 <body class="p-4">
     <h1><?=$user->username ?>  is Connected</h1><a href="./logout.php">se deconnecter</a>
- 
-    <?php if(isset($_GET['forbid'])):?> 
-      <div class="alert alert-danger">vous n'avez pas le droit pour acceder a la page </div>
-    <?php endif ?>
-    
   
        <div>
        <br/><br/><br/>
-            <p> <a href="./admin.php">admin page</a></p>
-            <p> <a href="./user.php">user page</a></p>
+            <p> <a href="/logout.php">vous étes sur la page admin !!!</a></p>
+           
          </div>
        
    
